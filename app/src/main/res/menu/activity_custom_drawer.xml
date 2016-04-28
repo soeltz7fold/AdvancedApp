@@ -1,0 +1,39 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/dashboard"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/transaction"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Transaction" />
+        <item
+            android:id="@+id/sync"
+            android:icon="@android:drawable/ic_popup_sync"
+            android:title="Synchronize" />
+<!--<item-->
+            <!--android:id="@+id/nav_manage"-->
+            <!--android:icon="@drawable/ic_menu_manage"-->
+            <!--android:title="Tools" />-->
+    </group>
+
+    <item android:title="MORE">
+        <menu>
+            <!--<item-->
+                <!--android:id="@+id/sync"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Synchronize" />-->
+            <item
+                android:id="@+id/exit"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Exit" />
+            <!--<item-->
+                <!--android:id="@+id/nav_send"-->
+                <!--android:icon="@drawable/ic_menu_send"-->
+                <!--android:title="Send" />-->
+        </menu>
+    </item>
+
+</menu>

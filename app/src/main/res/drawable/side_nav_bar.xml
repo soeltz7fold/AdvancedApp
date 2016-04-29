@@ -5,6 +5,6 @@
         android:centerColor = "@color/darkacent"
         android:endColor="#2E7D32"
         android:startColor="#81C784"
-        android:type="linear" />
+        android:type="sweep" />
     <!--android:centerColor="#4CAF50"-->
 </shape>

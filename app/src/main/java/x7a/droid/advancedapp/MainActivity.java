@@ -23,15 +23,16 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    public Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        toolbar.setTitle("");
         toolbar.setNavigationIcon(R.drawable.ic_menu_camera);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -80,9 +81,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.action_settings) {
             return true;
         }
-        if (id == R.id.setelan) {
-            finish();
-        }
+//        if (id == R.id.setelan) {
+//            finish();
+//        }
         if (id == R.id.action_wow){
             finish();
         }
@@ -133,7 +134,10 @@ public class MainActivity extends AppCompatActivity
             FT.replace(R.id.fragment_place, FG);
             FT.commit();
             Toast.makeText(this, "Welcome Transaction Page", Toast.LENGTH_SHORT).show();
+            toolbar.setTitle("Transaction Page");
+
         }
+
         else if (id == R.id.sync) {
             Fragment FG = new SyncPage();
             FragmentManager FM = getSupportFragmentManager();

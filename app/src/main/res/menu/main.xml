@@ -6,16 +6,16 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/clear_expanses"
-        android:orderInCategory="99"
-        android:title="@string/clear_expenses"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/clear_income"
-        android:orderInCategory="98"
-        android:title="@string/clear_income"
-        app:showAsAction="collapseActionView" />
+    <!--<item-->
+        <!--android:id="@+id/clear_expanses"-->
+        <!--android:orderInCategory="99"-->
+        <!--android:title="@string/clear_expenses"-->
+        <!--app:showAsAction="ifRoom" />-->
+    <!--<item-->
+        <!--android:id="@+id/clear_income"-->
+        <!--android:orderInCategory="98"-->
+        <!--android:title="@string/clear_income"-->
+        <!--app:showAsAction="collapseActionView" />-->
 
     <item
         android:id="@+id/action_wow"
@@ -25,10 +25,10 @@
         android:icon="@mipmap/ic_launcher"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/setelan"
-        android:icon="@drawable/ic_menu_manage"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="always" />
+    <!--<item-->
+        <!--android:id="@+id/setelan"-->
+        <!--android:icon="@drawable/ic_menu_manage"-->
+        <!--android:orderInCategory="100"-->
+        <!--android:title="@string/action_settings"-->
+        <!--app:showAsAction="always" />-->
 </menu>

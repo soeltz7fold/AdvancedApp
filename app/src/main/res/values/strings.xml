@@ -11,4 +11,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="clear_expenses">Clear Expenses</string>
     <string name="clear_income">Clear Income</string>
+    <string name="sync_now">SYNC NOW</string>
+    <string name="total_expenses">TOTAL EXPENSES =</string>
+    <string name="total_income">TOTAL INCOME =</string>
+    <string name="btn_income">ADD INCOME</string>
+    <string name="btn_expenses">ADD EXPENSES</string>
 </resources>

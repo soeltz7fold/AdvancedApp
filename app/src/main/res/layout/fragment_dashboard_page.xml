@@ -14,11 +14,10 @@
     android:orientation="vertical"
     android:background="@color/black">
 
-        <android.support.v7.widget.CardView
+    <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:layout_marginStart="@dimen/cardview_compat_inset_shadow"
-            android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
+            android:layout_height="300dp"
+            android:padding="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/cardview_compat_inset_shadow"
             android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
@@ -31,16 +30,35 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="5dp"
                     android:text="OVERVIEW EXPENSES"
                     android:textAlignment="center"
+                    android:id="@+id/tv_expenses_title"
                     android:textStyle="bold"/>
+
+                <!--<ListView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="180dp"-->
+                    <!--android:id="@+id/list_exp" />-->
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center"
+                    android:background="@color/black"/>
+
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:id="@+id/lv_expenses">
+
+                </ListView>
 
                 <View
                     android:layout_width="match_parent"
@@ -49,22 +67,21 @@
                     android:layout_gravity="center"
                     android:background="@color/black"/>
 
-                <ScrollView
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </ScrollView>
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/total_expenses"
+                    android:id="@+id/tv_total_expenses"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:layout_marginStart="@dimen/cardview_compat_inset_shadow"
-            android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
+            android:layout_height="300dp"
+            android:padding="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/cardview_compat_inset_shadow"
             android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
-            android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:id="@+id/cv_overview_income"
             android:layout_gravity="center"
@@ -78,31 +95,41 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="5dp"
                     android:text="OVERVIEW INCOME"
                     android:textAlignment="center"
+                    android:id="@+id/tv_income_title"
                     android:textStyle="bold"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_gravity="center"
                     android:background="@color/black"/>
-
-                <ScrollView
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:id="@+id/lv_incomes" />
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </ScrollView>
+                    android:layout_height="2dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="@color/black"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="@string/total_income"
+                    android:id="@+id/tv_total_income"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_balance"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/cardview_compat_inset_shadow"
-        android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
+        android:layout_height="80dp"
+        android:padding="@dimen/activity_horizontal_margin"
         android:layout_marginLeft="@dimen/cardview_compat_inset_shadow"
         android:layout_marginRight="@dimen/cardview_compat_inset_shadow"
         android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
@@ -116,10 +143,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="5dp"
         android:layout_gravity="center"
-        android:text="RESULT BALANCE"
-        android:id="@+id/tv_balance"
+        android:text="RESULT TOTAL BALANCE"
+        android:id="@+id/title_balance"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textStyle="bold"
@@ -127,9 +154,16 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_gravity="center"
             android:background="@color/black"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:textAllCaps="true"
+            android:textAlignment="center"
+            android:text="TOTAL BALANCE"
+            android:id="@+id/tv_balance"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,12 +25,17 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public Toolbar toolbar;
+    DatabaseHelper DB;
+    EditText desc_exp, amount_exp, result_exp,
+            desc_inc, amount_inc, result_inc;
+    Button add_exp, add_inc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setTitle("");
+        toolbar.setTitle("ADVANCED");
         toolbar.setNavigationIcon(R.drawable.ic_menu_camera);
         setSupportActionBar(toolbar);
 
@@ -42,13 +48,11 @@ public class MainActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -123,6 +127,7 @@ public class MainActivity extends AppCompatActivity
             FG.setArguments(bundle);
             FT.replace(R.id.fragment_place, FG);
             FT.commit();
+            toolbar.setTitle("DASHBOARD");
             Toast.makeText(this, "Welcome Dashboard Page", Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.transaction) {
@@ -134,7 +139,7 @@ public class MainActivity extends AppCompatActivity
             FT.replace(R.id.fragment_place, FG);
             FT.commit();
             Toast.makeText(this, "Welcome Transaction Page", Toast.LENGTH_SHORT).show();
-            toolbar.setTitle("Transaction Page");
+            toolbar.setTitle("TRANSACTION");
 
         }
 
@@ -146,6 +151,7 @@ public class MainActivity extends AppCompatActivity
             FG.setArguments(bundle);
             FT.replace(R.id.fragment_place, FG);
             FT.commit();
+            toolbar.setTitle("SYNCHRONIZE");
             Toast.makeText(this, "Welcome Synchronize Page", Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.exit) {

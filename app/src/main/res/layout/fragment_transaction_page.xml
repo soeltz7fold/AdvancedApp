@@ -59,7 +59,9 @@
                     android:layout_gravity="center_horizontal"
                     android:longClickable="true" />
                 </android.support.design.widget.TextInputLayout>
-
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <EditText
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,6 +72,7 @@
                     android:id="@+id/amount_add_expenses"
                     android:layout_gravity="center_horizontal"
                     android:longClickable="true" />
+                </android.support.design.widget.TextInputLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -82,12 +85,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_horizontal_margin"
                     android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                    android:text="ADD Expenses"
+                    android:text="@string/btn_expenses"
                     android:id="@+id/btnAddExpenses"
                     android:layout_gravity="center_horizontal" />
             </LinearLayout>
             </android.support.v7.widget.CardView>
-
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
@@ -119,7 +121,9 @@
                         android:layout_height="2dp"
                         android:layout_marginTop="@dimen/activity_horizontal_margin"
                         android:background="@color/black"/>
-
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                     <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -129,7 +133,11 @@
                         android:hint="Description Add Income"
                         android:layout_gravity="center_horizontal"
                         android:id="@+id/desc_new_income" />
+                    </android.support.design.widget.TextInputLayout>
 
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
                     <EditText
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -139,6 +147,7 @@
                         android:hint="Amount Add Income"
                         android:id="@+id/amount_new_income"
                         android:layout_gravity="center_horizontal" />
+                    </android.support.design.widget.TextInputLayout>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
@@ -149,7 +158,7 @@
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ADD INCOME"
+                        android:text="@string/btn_income"
                         android:layout_marginTop="@dimen/activity_horizontal_margin"
                         android:layout_marginBottom="@dimen/activity_horizontal_margin"
                         android:id="@+id/btnAddIncome"
@@ -157,7 +166,6 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
-
 </FrameLayout>
 
 

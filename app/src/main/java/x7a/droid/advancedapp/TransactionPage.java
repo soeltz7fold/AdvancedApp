@@ -4,6 +4,7 @@ package x7a.droid.advancedapp;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,10 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class TransactionPage extends Fragment implements View.OnClickListener{
+    DatabaseHelper DB;
+    String get_amount_exp, get_desc_exp, get_desc_inc, get_amount_inc;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -31,9 +37,14 @@ public class TransactionPage extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
 //        return inflater.inflate(R.layout.fragment_transaction_page, container, false);
     View view = inflater.inflate(R.layout.fragment_transaction_page, container, false);
 //        return view;
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+//        toolbar.setTitle("Transaction");
+//        toolbar.setNavigationIcon(R.drawable.ic_menu_camera);
+//        setSupportActionBar(toolbar);
 
 
     //init
@@ -46,9 +57,12 @@ public class TransactionPage extends Fragment implements View.OnClickListener{
         //capture
         btn_add_exp.setOnClickListener(this);
         btn_add_inc.setOnClickListener(this);
-//        fab_trans.setOnClickListener(this);
         desc_add_exp.setOnClickListener(this);
         amount_add_exp.setOnClickListener(this);
+//        fab_trans.setOnClickListener(this);
+        DB = new DatabaseHelper(getContext());
+        DB.list_expenses();
+        DB.list_incomes();
         return view;
     }
 
@@ -58,34 +72,45 @@ public class TransactionPage extends Fragment implements View.OnClickListener{
         switch (v.getId()) {
             case R.id.btnAddExpenses:
                 try {
-                    EditText desc = (EditText) getView().findViewById(R.id.desc_add_expenses);
-                    EditText amount = (EditText) getView().findViewById(R.id.amount_add_expenses);
-                    TextView result = (TextView) getView().findViewById(R.id.tv_new_expenses);
-                    String expenses = desc.getText().toString()
-                            + Integer.parseInt(amount.getText().toString());
-                    result.setText("Nilai Expenses = " + expenses);
+                    EditText desc_exp = (EditText) getView().findViewById(R.id.desc_add_expenses);
+                    EditText amount_exp = (EditText) getView().findViewById(R.id.amount_add_expenses);
+                    TextView tv_result = (TextView) getView().findViewById(R.id.tv_new_expenses);
+                    get_amount_exp = amount_exp.getText().toString();
+                    get_desc_exp = desc_exp.getText().toString();
+                    boolean result = DB.save_expanses(get_desc_exp, get_amount_exp);
+                    if (result)
+                        Toast.makeText(getActivity(), "Succeed Input New Expenses", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getActivity(), "Failed Add New Expenses", Toast.LENGTH_SHORT).show();
+                    //Display Value
+                    String total_expenses = get_desc_exp + Integer.parseInt(get_amount_exp);
+                    tv_result.setText("Nilai Expenses = " + total_expenses);
                     Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
-                    result.setTypeface(supercell);
-
+                    tv_result.setTypeface(supercell);
                 } catch (Exception e) {
-                    Toast.makeText(getActivity(), "ADD EXPANSES CLICKED", Toast.LENGTH_SHORT).show();
                 }
                 break;
-//            case R.id.fab_trans:
-//                EditText desc = (EditText) getView().findViewById(R.id.desc_add_expenses);
-//                EditText amount = (EditText) getView().findViewById(R.id.amount_add_expenses);
-//                TextView result = (TextView) getView().findViewById(R.id.tv_new_expenses);
-//                desc.setText("");
-//                amount.setText("");
-//                result.setText("Wanna Try Again?");
-//                Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
-//                result.setTypeface(supercell);
-//                break;
 
-//            case R.id.btnAddIncome:
-//            Toast.makeText(getActivity(), "ADD INCOME CLICKED", Toast.LENGTH_SHORT).show();
-//        break;
-//
+            case R.id.btnAddIncome:
+                try {
+                    EditText desc_inc = (EditText) getView().findViewById(R.id.desc_new_income);
+                    EditText amount_inc = (EditText) getView().findViewById(R.id.amount_new_income);
+                    TextView tv_result = (TextView) getView().findViewById(R.id.tv_new_income);
+                    get_desc_inc = desc_inc.getText().toString();
+                    get_amount_inc = amount_inc.getText().toString();
+                    boolean result = DB.save_income(get_desc_inc, get_amount_inc);
+                    if (result)
+                        Toast.makeText(getActivity(), "Succees Input New Income", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(getActivity(), "Failed Input New Income ", Toast.LENGTH_SHORT).show();
+                    //Display Value
+                    String total_income = get_desc_inc + Integer.parseInt(get_amount_inc);
+                    tv_result.setText("Nilai Income = " + total_income);
+                    Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
+                    tv_result.setTypeface(supercell);
+                } catch (Exception e) {
+                }
+                break;
             }
         }
     }

@@ -24,12 +24,12 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final String TABLE_CREATE_EXPENSES = "CREATE TABLE " + TABLE_NAME_EXPENSES +"("+
             COL_1_EXP + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
             COL_2_EXP + " TEXT, "+
-            COL_3_EXP + " TETX); ";
-//            COL_3_EXP + " INT); ";
+            COL_3_EXP + " INT); ";
+//            COL_3_EXP + " TEXT); ";
     public static final String TABLE_CREATE_INCOMES = "CREATE TABLE " + TABLE_NAME_INCOMES +"("+
             COL_1_INC + " INTEGER PRIMARY KEY AUTOINCREMENT, "+
             COL_2_INC + " TEXT, "+
-            COL_3_INC + " TEXT); ";
+            COL_3_INC + " INT); ";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

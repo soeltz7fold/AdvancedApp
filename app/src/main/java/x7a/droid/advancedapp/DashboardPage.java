@@ -3,6 +3,7 @@ package x7a.droid.advancedapp;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -50,13 +51,6 @@ public class DashboardPage extends Fragment {
 //            ViewGroup parent = (ViewGroup)view.getParent();
 //            parent.removeView(view);
 
-
-//        TextView title_exp = (TextView) view.findViewById(R.id.tv_expenses_title);
-//        TextView title_inc = (TextView) view.findViewById(R.id.tv_income_title);
-//        TextView txtDesc_exp = (TextView) view.findViewById(R.id.txt_desc_exp);
-//        TextView tvTotalExpenses = (TextView) view.findViewById(R.id.tv_total_expenses);
-//        TextView tvTotalIncome = (TextView) view.findViewById(R.id.tv_total_income);
-//        TextView txtAmount_exp = (TextView) view.findViewById(R.id.txt_amount_inc);
         ListView lv_expanses_obj = (ListView) view.findViewById(R.id.lv_expenses);
         ListView lv_incomes_obj = (ListView) view.findViewById(R.id.lv_incomes);
         TextView expTotal = (TextView)view.findViewById(R.id.tv_total_expenses);
@@ -78,14 +72,14 @@ public class DashboardPage extends Fragment {
         descriptIn.setInputType(InputType.TYPE_CLASS_TEXT);
         descriptIn.setHint("Description");
         descriptIn.setTextColor(Color.parseColor("#c0c0c0"));
-        descriptIn.setHintTextColor(Color.parseColor("#ffffff"));
+        descriptIn.setHintTextColor(Color.parseColor("#3F51B5"));
         descriptIn.setEnabled(false);
         descriptIn.setGravity(Gravity.CENTER);
         //Amount Temporary
         amountIn.setInputType(InputType.TYPE_CLASS_NUMBER);
         amountIn.setHint("Amount");
         amountIn.setTextColor(Color.parseColor("#c0c0c0"));
-        amountIn.setHintTextColor(Color.parseColor("#ffffff"));
+        amountIn.setHintTextColor(Color.parseColor("#3F51B5"));
         amountIn.setGravity(Gravity.CENTER);
         amountIn.setEnabled(false);
         //Update Temporary
@@ -93,7 +87,9 @@ public class DashboardPage extends Fragment {
         update.setTextColor(Color.parseColor("#1E824C"));
         update.setGravity(Gravity.CENTER);
         update.setBackgroundColor(Color.parseColor("#66CC99"));
-        //Cursor
+
+
+        // CURSOR ADAPTER INCOMES
         SimpleCursorAdapter AdapterExp = new SimpleCursorAdapter(view.getContext(),
                 R.layout.custom_data_list, expenses,
                 new String[] {"description_exp","amount_exp"},
@@ -103,7 +99,7 @@ public class DashboardPage extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 expenses.moveToPosition(position);
-                final int rowId = expenses.getInt(expenses.getColumnIndexOrThrow("id_exp"));
+                final int rowId = expenses.getInt(expenses.getColumnIndexOrThrow("_id"));
                 final String descriptionTemp = expenses.getString(expenses.getColumnIndex("description_exp"));
                 final String amountTemp = expenses.getString(expenses.getColumnIndex("amount_exp"));
                 AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
@@ -113,7 +109,7 @@ public class DashboardPage extends Fragment {
         LinearLayout layoutD = new LinearLayout(getActivity());
         layoutD.setOrientation(LinearLayout.VERTICAL);
         layoutD.setPadding (5,5,5,5);
-        layoutD.setBackgroundColor(Color.parseColor("#E9D460"));
+        layoutD.setBackgroundColor(Color.parseColor("#3F51B5"));
         layoutD.addView(descriptIn);
         layoutD.addView(amountIn);
         layoutD.addView(update);
@@ -143,7 +139,7 @@ public class DashboardPage extends Fragment {
             //ALERT EXPENSES
             alert.setCancelable(false)
                 .setTitle("Data Expanses")
-                .setMessage("Please Input New Data or Delete to remove : ")
+                .setMessage("Update Data? Or Delete To Remove : ")
                 .setPositiveButton("Cancel", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -155,7 +151,7 @@ public class DashboardPage extends Fragment {
                 .setNegativeButton("DELETE", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        int id = DB.delete_expenses(String.valueOf(rowId));
+                        int id_del = DB.delete_expenses(String.valueOf(rowId));
                         Toast.makeText(getActivity(), "Data Deleted", Toast.LENGTH_SHORT).show();
                         refreshFragment();
                         dialog.dismiss();
@@ -176,7 +172,7 @@ public class DashboardPage extends Fragment {
         });
 
 
-
+        // CURSOR ADAPTER INCOMES
         SimpleCursorAdapter AdapterInc = new SimpleCursorAdapter(getActivity(),
                 R.layout.custom_data_list, incomes,
                 new String[]{"description_inc", "amount_inc"},
@@ -186,7 +182,7 @@ public class DashboardPage extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 expenses.moveToPosition(position);
-                final int rowId = incomes.getInt(incomes.getColumnIndexOrThrow("id_inc"));
+                final int rowId = incomes.getInt(incomes.getColumnIndexOrThrow("_id"));
                 final String descriptionTemp = incomes.getString(incomes.getColumnIndex("description_inc"));
                 final String amountTemp = incomes.getString(incomes.getColumnIndex("amount_inc"));
                 alert = new AlertDialog.Builder(getActivity());
@@ -196,7 +192,7 @@ public class DashboardPage extends Fragment {
                 LinearLayout LayoutD = new LinearLayout(getActivity());
                 LayoutD.setOrientation(LinearLayout.VERTICAL);
                 LayoutD.setPadding(5,5,5,5);
-                LayoutD.setBackgroundColor(Color.parseColor("#E9D460"));
+                LayoutD.setBackgroundColor(Color.parseColor("#3F51B5"));
                 LayoutD.addView(descriptIn);
                 LayoutD.addView(amountIn);
                 LayoutD.addView(update);
@@ -225,7 +221,7 @@ public class DashboardPage extends Fragment {
                 //ALERT INCOMES
                 alert.setCancelable(false)
                         .setTitle("Data Incomes")
-                        .setMessage("Please Input New Data or Delete to remove : ")
+                        .setMessage("Update Data? Or Delete To Remove : ")
                         .setPositiveButton("Cancel", new DialogInterface.OnClickListener(){
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -237,7 +233,7 @@ public class DashboardPage extends Fragment {
                         .setNegativeButton("DELETE", new DialogInterface.OnClickListener(){
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                int id = DB.delete_expenses(String.valueOf(rowId));
+                                int id_inc = DB.delete_income(String.valueOf(rowId));
                                 Toast.makeText(getActivity(), "Data Deleted", Toast.LENGTH_SHORT).show();
                                 refreshFragment();
                                 dialog.dismiss();
@@ -262,14 +258,17 @@ public class DashboardPage extends Fragment {
         while (expenses.moveToNext()){
             sumExp += expenses.getInt(expenses.getColumnIndex("amount_exp"));
         }
-        expTotal.setText("$ "+String.valueOf(sumExp));
+        expTotal.setText("TOTAL EXPENSES = Rp."+String.valueOf(sumExp));
 
         int sumInc = 0;
         while (incomes.moveToNext()){
             sumInc += incomes.getInt(incomes.getColumnIndex("amount_inc"));
         }
-        incTotal.setText("$ "+String.valueOf(sumInc));
-        balTotal.setText("$ "+String.valueOf(sumInc-sumExp));
+        incTotal.setText("INCOMES TOTAL = Rp."+String.valueOf(sumInc));
+
+        balTotal.setText("RP. "+String.valueOf(sumInc-sumExp));
+        Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
+        balTotal.setTypeface(supercell);
         DB.close();
         return view;
     }

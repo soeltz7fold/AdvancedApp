@@ -16,4 +16,7 @@
     <string name="total_income">TOTAL INCOME =</string>
     <string name="btn_income">ADD INCOME</string>
     <string name="btn_expenses">ADD EXPENSES</string>
+    <string name="rupiah">Rp.</string>
+    <string name="overview_incomes">OVERVIEW INCOMES</string>
+    <string name="overview_expenses">OVERVIEW EXPENSES</string>
 </resources>

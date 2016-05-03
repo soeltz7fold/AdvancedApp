@@ -23,21 +23,27 @@
                 android:layout_height="wrap_content"
                 android:maxWidth="30dp"
                 android:singleLine="false"
-                android:text="Description"
-                android:textAlignment="center"/>
+                android:text="Description_expenses"
+                android:elegantTextHeight="true"
+                android:layout_gravity="fill_vertical"
+                android:layout_marginLeft="50dp"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:text="$"
-                android:textAlignment="center"/>
+                android:layout_gravity="end"
+                android:textAlignment="center"
+                android:text="@string/rupiah"/>
 
             <TextView
                 android:id="@+id/data_list_amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="PRiCE"/>
+                android:textColor="@color/colorAccent"
+                android:gravity="start"
+                android:layout_gravity="start"
+                android:textAlignment="textStart"
+                android:text="value_expenses"/>
 
         </TableRow>
     </TableLayout>

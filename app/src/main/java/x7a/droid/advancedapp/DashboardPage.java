@@ -258,13 +258,15 @@ public class DashboardPage extends Fragment {
         while (expenses.moveToNext()){
             sumExp += expenses.getInt(expenses.getColumnIndex("amount_exp"));
         }
-        expTotal.setText("TOTAL EXPENSES = Rp."+String.valueOf(sumExp));
+        expTotal.setText("YOUR TOTAL EXPENSES = Rp."+String.valueOf(sumExp));
+        expTotal.setTypeface(Typeface.DEFAULT_BOLD);
 
         int sumInc = 0;
         while (incomes.moveToNext()){
             sumInc += incomes.getInt(incomes.getColumnIndex("amount_inc"));
         }
-        incTotal.setText("INCOMES TOTAL = Rp."+String.valueOf(sumInc));
+        incTotal.setText("YOUR TOTAL INCOMES = Rp."+String.valueOf(sumInc));
+        incTotal.setTypeface(Typeface.DEFAULT_BOLD);
 
         balTotal.setText("RP. "+String.valueOf(sumInc-sumExp));
         Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");

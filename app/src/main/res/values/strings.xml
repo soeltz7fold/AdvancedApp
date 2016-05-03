@@ -19,4 +19,6 @@
     <string name="rupiah">Rp.</string>
     <string name="overview_incomes">OVERVIEW INCOMES</string>
     <string name="overview_expenses">OVERVIEW EXPENSES</string>
+    <string name="nav_name">Hello, M.Dwi Kuntobayu</string>
+    <string name="nav_email">android.studio@android.com</string>
 </resources>

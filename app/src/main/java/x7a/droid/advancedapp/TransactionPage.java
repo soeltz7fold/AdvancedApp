@@ -79,12 +79,14 @@ public class TransactionPage extends Fragment implements View.OnClickListener{
                     get_desc_exp = desc_exp.getText().toString();
                     boolean result = DB.save_expanses(get_desc_exp, get_amount_exp);
                     if (result)
-                        Toast.makeText(getActivity(), "Succeed Input New Expenses", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "New Expenses Inputted", Toast.LENGTH_SHORT).show();
                     else
-                        Toast.makeText(getActivity(), "Failed Add New Expenses", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "New Expenses Failed", Toast.LENGTH_SHORT).show();
                     //Display Value
                     String total_expenses = get_desc_exp + Integer.parseInt(get_amount_exp);
-                    tv_result.setText("Nilai Expenses = " + total_expenses);
+                    tv_result.setText("New Expenses = " +" " +total_expenses);
+                    desc_exp.setText("");
+                    amount_exp.setText("");
                     Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
                     tv_result.setTypeface(supercell);
                 } catch (Exception e) {
@@ -100,12 +102,14 @@ public class TransactionPage extends Fragment implements View.OnClickListener{
                     get_amount_inc = amount_inc.getText().toString();
                     boolean result = DB.save_income(get_desc_inc, get_amount_inc);
                     if (result)
-                        Toast.makeText(getActivity(), "Succees Input New Income", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "New Income Succeed", Toast.LENGTH_SHORT).show();
                     else
-                        Toast.makeText(getActivity(), "Failed Input New Income ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "New Income Succeed", Toast.LENGTH_SHORT).show();
                     //Display Value
                     String total_income = get_desc_inc + Integer.parseInt(get_amount_inc);
-                    tv_result.setText("Nilai Income = " + total_income);
+                    tv_result.setText("New Income = " +" " +total_income);
+                    desc_inc.setText("");
+                    amount_inc.setText("");
                     Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
                     tv_result.setTypeface(supercell);
                 } catch (Exception e) {

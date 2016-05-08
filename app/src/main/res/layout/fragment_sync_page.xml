@@ -4,11 +4,29 @@
     android:layout_height="match_parent"
     tools:context="x7a.droid.advancedapp.SyncPage"
     android:id="@+id/fragment_sync"
-    android:background="@color/purple">
+    android:background="@color/gray">
 
     <!-- TODO: Update blank fragment layout -->
 
 
+    <ProgressBar
+        android:id="@+id/sync_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|top"
+        android:visibility="gone" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="NILAI RESPONSE"
+        android:id="@+id/tv_respond"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/colorAccent"
+        android:layout_marginTop="50dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -16,4 +34,16 @@
         android:text="@string/sync_now"
         android:id="@+id/btnSync"
         android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="STATUS VALUES"
+        android:id="@+id/tv_values"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginBottom="50dp"
+        android:layout_gravity="center_horizontal|bottom" />
 </FrameLayout>

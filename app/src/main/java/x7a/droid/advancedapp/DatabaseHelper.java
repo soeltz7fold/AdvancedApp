@@ -14,7 +14,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Advanced.db";
     public static final String TABLE_NAME_EXPENSES = "expenses";
-    public static final String TABLE_NAME_INCOMES = "income";
+    public static final String TABLE_NAME_INCOMES = "incomes";
     public static final String COL_1_EXP = "id";
     public static final String COL_2_EXP = "description_exp";
     public static final String COL_3_EXP = "amount_exp";
@@ -108,4 +108,19 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         return db.delete(TABLE_NAME_INCOMES, "ID = ?", new String[]{id});
     }
 
+
+    ///METHOD GET EXPENSES
+    public Cursor getAllDataExpenses() {
+        String selectQuery = "Select * from "+TABLE_NAME_EXPENSES;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor curAllExpenses = db.rawQuery(selectQuery, null);
+        return curAllExpenses;
+    }
+
+    public Cursor getAllDataIncomes() {
+        String selectQuery = "Select * from "+TABLE_NAME_INCOMES;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor curAllIncomes = db.rawQuery(selectQuery, null);
+        return curAllIncomes;
+    }
 }

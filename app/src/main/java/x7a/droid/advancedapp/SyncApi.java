@@ -26,4 +26,7 @@ public interface SyncApi {
 
     @DELETE("/Task4/{id}")
     Call<SyncTransaction> deleteExpenses(@Path("id")int expenses_id);
+
+    @POST("/Task4")
+    Call<SyncTransaction> syncExpenses(@Body SyncTransaction expenses);
 }

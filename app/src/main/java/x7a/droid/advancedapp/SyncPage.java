@@ -47,7 +47,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SyncPage extends Fragment{
-    private static final String BASE_URL_REGISTER = "http://private-6020b-task42.apiary-mock.com";
+    private static final String BASE_URL_SYNC = "http://private-6020b-task42.apiary-mock.com";
     TextView tv_status, tv_values;
  AlertDialog.Builder alert;
  Fragment fragment;
@@ -73,141 +73,137 @@ public class SyncPage extends Fragment{
         final ProgressBar PB = (ProgressBar) view.findViewById(R.id.sync_progress);
         final Button retryBtn = new Button(getActivity());
         final Button skipBtn = new Button(getActivity());
-//        ProgressDialog[] SyncDialog = new ProgressDialog[1];
 
         JSONObject JSON_obj_exp, JSON_obj_inc;
         JSONArray JSON_arr_exp, JSON_arr_inc;
 
-        //Sync Koneksi
-        if (!KoneksiCek()) {
-            Toast.makeText(getActivity(), "Oooppss, No Connection Detected", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(getActivity(), "Network Detected, \n\" " +
-                                            "Ready To Sync", Toast.LENGTH_SHORT).show();
-        }
-        DB = new DatabaseHelper(getContext());
-        expenses = DB.getAllDataExpenses();
-        incomes = DB.getAllDataIncomes();
+        //Check Network
+        KoneksiCek();
 
-        clicked =0;
-        //Retry Temporary
-        retryBtn.setText("Retry");
-        retryBtn.setTextColor(Color.parseColor("#1E824C"));
-        retryBtn.setGravity(Gravity.CENTER);
-        retryBtn.setBackgroundColor(Color.parseColor("#66CC99"));
-        //Retry Temporary
-        skipBtn.setText("Skip");
-        skipBtn.setTextColor(Color.parseColor("#1E824C"));
-        skipBtn.setGravity(Gravity.CENTER);
-        skipBtn.setBackgroundColor(Color.parseColor("#66CC99"));
+            DB = new DatabaseHelper(getContext());
+            expenses = DB.getAllDataExpenses();
+            incomes = DB.getAllDataIncomes();
 
-        ArrayList<String> expenses_value = new ArrayList<>();
-        ArrayList<String> incomes_value = new ArrayList<>();
-        Cursor curExpenses = DB.getAllDataExpenses();
-        Cursor curIncomes = DB.getAllDataIncomes();
+            clicked = 0;
+            //Retry Temporary
+            retryBtn.setText("Retry");
+            retryBtn.setTextColor(Color.parseColor("#1E824C"));
+            retryBtn.setGravity(Gravity.CENTER);
+            retryBtn.setBackgroundColor(Color.parseColor("#66CC99"));
+            //Retry Temporary
+            skipBtn.setText("Skip");
+            skipBtn.setTextColor(Color.parseColor("#1E824C"));
+            skipBtn.setGravity(Gravity.CENTER);
+            skipBtn.setBackgroundColor(Color.parseColor("#66CC99"));
+
+            ArrayList<String> expenses_value = new ArrayList<>();
+            ArrayList<String> incomes_value = new ArrayList<>();
+            Cursor curExpenses = DB.getAllDataExpenses();
+            Cursor curIncomes = DB.getAllDataIncomes();
 
 
-        //CONVERT
-        String[] data_expenses;
-        if (curExpenses != null){
-            while(curExpenses.moveToNext()){
-                data_expenses = new String[3];
-                data_expenses[0] = Integer.toString(curExpenses.getInt(0));
-                data_expenses[1] = curExpenses.getString(1);
-                data_expenses[2] = Integer.toString(curExpenses.getInt(2));
-                Log.e("info expenses", data_expenses[1]);
-                expenses_value.add(String.valueOf(data_expenses));
+            //CONVERT
+            String[] data_expenses;
+            if (curExpenses != null) {
+                while (curExpenses.moveToNext()) {
+                    data_expenses = new String[3];
+                    data_expenses[0] = Integer.toString(curExpenses.getInt(0));
+                    data_expenses[1] = curExpenses.getString(1);
+                    data_expenses[2] = Integer.toString(curExpenses.getInt(2));
+                    Log.e("info expenses", data_expenses[1]);
+                    expenses_value.add(String.valueOf(data_expenses));
+                }
+                curExpenses.close();
             }
-            curExpenses.close();
-        }
-        String[] data_incomes;
-        if (curIncomes != null) {
-            while (curIncomes.moveToNext()) {
-                data_incomes = new String[3];
-                data_incomes[0] = Integer.toString(curIncomes.getInt(0));
-                data_incomes[1] = curIncomes.getString(1);
-                data_incomes[2] = Integer.toString(curIncomes.getInt(2));
-                Log.e("info incomes", data_incomes[1]);
-                incomes_value.add(String.valueOf(data_incomes));
+            String[] data_incomes;
+            if (curIncomes != null) {
+                while (curIncomes.moveToNext()) {
+                    data_incomes = new String[3];
+                    data_incomes[0] = Integer.toString(curIncomes.getInt(0));
+                    data_incomes[1] = curIncomes.getString(1);
+                    data_incomes[2] = Integer.toString(curIncomes.getInt(2));
+                    Log.e("info incomes", data_incomes[1]);
+                    incomes_value.add(String.valueOf(data_incomes));
+                }
+                curIncomes.close();
             }
-            curIncomes.close();
-        }
-
-        tv_values.setText(String.valueOf(incomes_value));
-//        Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
-//        tv_values.setTypeface(supercell);
+            tv_values.setText(String.valueOf(incomes_value));
 
         btnSync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSyncing();
-            }
-        });
+                if(KoneksiCek()==false) {
+                    Toast.makeText(getActivity(), "Check Your Network Connectivity!!!", Toast.LENGTH_SHORT).show();
+                }else{
+                    onSyncing();
+                    }
+                }
+            });
         return view;
-    }
+        }
 
     private boolean onSyncing() {
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'H:mm:ssZ")
-                .create();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL_REGISTER)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build();
-        final SyncApi sync_transaction = retrofit.create(SyncApi.class);
-        //implement sync data
-        final SyncTransaction Sync = new SyncTransaction(expenses,incomes);
-        //SYNC FAKE SERVER
-        Call<SyncTransaction> call = sync_transaction.saveExpenses(Sync);
-        call.enqueue(new Callback<SyncTransaction>() {
-            @Override
-            public void onResponse(Call<SyncTransaction> call, Response<SyncTransaction> response) {
-                final int status = response.code();
+            Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd'T'H:mm:ssZ")
+                    .create();
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL_SYNC)
+                    .addConverterFactory(GsonConverterFactory.create(gson))
+                    .build();
+            final SyncApi sync_transaction = retrofit.create(SyncApi.class);
+            //implement sync data
+            final SyncTransaction Sync = new SyncTransaction(expenses, incomes);
+            //SYNC FAKE SERVER
+            Call<SyncTransaction> call = sync_transaction.syncExpenses(Sync);
+            call.enqueue(new Callback<SyncTransaction>() {
+                @Override
+                public void onResponse(Call<SyncTransaction> call, Response<SyncTransaction> response) {
+                    final int status = response.code();
 //                tv_status.setText(String.valueOf(status));
 
-                if (status==404){
-                    onSynced();
-                    tv_status.setText("SUCCESS SYNC VALUE = "+String.valueOf(status));
-                    Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
-                    tv_status.setTypeface(supercell);
-                    SyncDialog.dismiss();
-                }else{
-//                            Toast.makeText(getActivity(), "404, NOT FOUND", Toast.LENGTH_SHORT).show();
-                    onFailed();
-                    tv_status.setText("FAILED SYNC VALUE = " +String.valueOf(status));
-                    Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
-                    tv_status.setTypeface(supercell);
-                    SyncDialog.dismiss();
+                    if (status == 404) {
+                        onSynced();
+                        tv_status.setText("SUCCESS SYNC VALUE = " + String.valueOf(status));
+                        Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
+                        tv_status.setTypeface(supercell);
+                        SyncDialog.dismiss();
+                    } else {
+//                        Toast.makeText(getActivity(), "404, NOT FOUND", Toast.LENGTH_SHORT).show();
+                        onFailed();
+                        tv_status.setText("FAILED SYNC VALUE = " + String.valueOf(status));
+                        Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
+                        tv_status.setTypeface(supercell);
+                        SyncDialog.dismiss();
+                    }
                 }
-            }
-            @Override
-            public void onFailure(Call<SyncTransaction> call, Throwable t) {
-                tv_status.setText("Nilai FAILURE Response API = "+String.valueOf(t));
-                Log.d("Sync", "Sync Response =" + t.getMessage());
-            }
-        });
 
-        // Sync Dialog
-        int totalProgressTime = 100;
-        SyncDialog = new ProgressDialog(getActivity());
-        SyncDialog.setMessage("Syncing....");
-        SyncDialog.setTitle("Checking Values");
-        SyncDialog.setCancelable(false);
-        SyncDialog.setIndeterminate(false);
-        SyncDialog.setProgress(7);
-        SyncDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "CANCEL SYNC", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(), "SYNC CANCELLED", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-                SyncDialog.dismiss();
-                refreshFragment();
-            }
-        });
-        SyncDialog.show();
+                @Override
+                public void onFailure(Call<SyncTransaction> call, Throwable t) {
+                    tv_status.setText("Nilai FAILURE Response API = " + String.valueOf(t));
+                    Log.d("Sync", "Sync Response =" + t.getMessage());
+                }
+            });
+
+            // Sync Dialog
+            int totalProgressTime = 100;
+            SyncDialog = new ProgressDialog(getActivity());
+            SyncDialog.setMessage("Syncing....");
+            SyncDialog.setTitle("Checking Values");
+            SyncDialog.setCancelable(false);
+            SyncDialog.setIndeterminate(false);
+            SyncDialog.setProgress(7);
+//        SyncDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "CANCEL SYNC", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(getActivity(), "SYNC CANCELLED", Toast.LENGTH_SHORT).show();
+//                dialog.dismiss();
+//                SyncDialog.dismiss();
+//                refreshFragment();
+//            }
+//        });
+            SyncDialog.show();
         return true;
     }
-
 
     private boolean onSynced() {
         Toast.makeText(getActivity(), "SYNC SUCCEED", Toast.LENGTH_SHORT).show();
@@ -231,8 +227,9 @@ public class SyncPage extends Fragment{
                 .setPositiveButton("Retry?", new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getActivity(), "Resynchronizing Now....", Toast.LENGTH_SHORT).show();
-                        dialog.cancel();
+                        Toast.makeText(getActivity(), "Retry Synchronizing....", Toast.LENGTH_SHORT).show();
+//                        dialog.cancel();//bugs
+                        dialog.dismiss();
                         onSyncing();
                     }
                 })
@@ -241,16 +238,16 @@ public class SyncPage extends Fragment{
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(getActivity(), "Sync Skipped", Toast.LENGTH_SHORT).show();
                         dialog.dismiss();
-                        SyncDialog.dismiss();
                         refreshFragment();
                     }
                 });
-//           .setNegativeButton("Cancel!", new DialogInterface.OnClickListener() {
+//           .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 //            @Override
 //            public void onClick(DialogInterface dialog, int which) {
 //                Toast.makeText(getActivity(), "Sync Cancelled", Toast.LENGTH_SHORT).show();
+////                dialog.dismiss();
+////                SyncDialog.dismiss();
 //                homeFragment();
-//                dialog.dismiss();
 //            }
 //        });
         alert.show();
@@ -267,13 +264,15 @@ public class SyncPage extends Fragment{
 
     private boolean KoneksiCek() {
         ConnectivityManager konek = (ConnectivityManager)getContext()
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
+                                    .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = konek.getActiveNetworkInfo();
         if(netInfo !=null && netInfo.isConnectedOrConnecting()){
-            return true;
+            Toast.makeText(getActivity(), "NETWORK OK", Toast.LENGTH_SHORT).show();
         }else{
-            return false;
+            Toast.makeText(getActivity(), "NO NETWORK", Toast.LENGTH_SHORT).show();
+//            onFailed();
         }
+        return true;
     }
     private void homeFragment() {
         fragment = new DashboardPage();
@@ -333,13 +332,7 @@ public class SyncPage extends Fragment{
 //        });
 //    }
 
-//    private void refreshFragment() {
-//            fragment = new SyncPage();
-//            FM = getFragmentManager();
-//            FT = FM.beginTransaction();
-//            FT.replace(R.id.fragment_place, fragment);
-//            FT.commit();
-//            }
+
 //    private void onFailed(){
 //        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
 //        LinearLayout layoutD = new LinearLayout(getActivity());
@@ -351,10 +344,6 @@ public class SyncPage extends Fragment{
 //        alert.setView(layoutD);
 //        }
 //        });
-
-
-
-
 
 
 //

@@ -21,4 +21,6 @@
     <string name="overview_expenses">OVERVIEW EXPENSES</string>
     <string name="nav_name">Hello, M.Dwi Kuntobayu</string>
     <string name="nav_email">android.studio@android.com</string>
+    <string name="cancel_sync">Cancel</string>
+    <string name="skip_sync">Skip</string>
 </resources>

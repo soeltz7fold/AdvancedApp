@@ -30,7 +30,7 @@ public class TransactionPage extends Fragment implements View.OnClickListener{
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // TODO Add your menu entries here
-        inflater.inflate(R.menu.main_2, menu);
+        inflater.inflate(R.menu.menu_transaction, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 

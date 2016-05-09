@@ -111,6 +111,12 @@ public class MainActivity extends AppCompatActivity
             Typeface supercell = Typeface.createFromAsset(getResources().getAssets(), "fonts/Supercell.ttf");
             result_inc.setTypeface(supercell);
         }
+        if(id == R.id.cancel_sync){
+            Toast.makeText(getApplicationContext(), "Cancel Sync?", Toast.LENGTH_SHORT).show();
+        }
+        if (id == R.id. skip_sync){
+            Toast.makeText(getApplicationContext(), "Skip Sync?", Toast.LENGTH_SHORT).show();
+        }
         return super.onOptionsItemSelected(item);
     }
 

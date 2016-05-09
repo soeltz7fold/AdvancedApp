@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <item
+            android:id="@+id/cancel_sync"
+            android:orderInCategory="99"
+            android:title="@string/cancel_sync"
+            app:showAsAction="ifRoom" />
+        <item
+            android:id="@+id/skip_sync"
+            android:orderInCategory="98"
+            android:title="@string/skip_sync"
+            app:showAsAction="ifRoom" />
+
+
+</menu>

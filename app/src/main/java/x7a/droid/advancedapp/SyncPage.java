@@ -20,6 +20,8 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -58,6 +60,9 @@ public class SyncPage extends Fragment{
  Cursor expenses, incomes;
  int clicked;
  private ProgressDialog SyncDialog;
+// private List <String>expenses_value_List = new ArrayList<String>();
+
+
 //    private String[] expenses = {
 //            "id_exp","description_exp","amount_exp"};
 //    private String [] incomes = {
@@ -73,7 +78,7 @@ public class SyncPage extends Fragment{
         final ProgressBar PB = (ProgressBar) view.findViewById(R.id.sync_progress);
         final Button retryBtn = new Button(getActivity());
         final Button skipBtn = new Button(getActivity());
-
+        setHasOptionsMenu(true);
         JSONObject JSON_obj_exp, JSON_obj_inc;
         JSONArray JSON_arr_exp, JSON_arr_inc;
 
@@ -96,8 +101,8 @@ public class SyncPage extends Fragment{
             skipBtn.setGravity(Gravity.CENTER);
             skipBtn.setBackgroundColor(Color.parseColor("#66CC99"));
 
-            ArrayList<String> expenses_value = new ArrayList<>();
-            ArrayList<String> incomes_value = new ArrayList<>();
+            ArrayList<String> expenses_value_List = new ArrayList<String>();
+            ArrayList<String> incomes_value_List = new ArrayList<String>();
             Cursor curExpenses = DB.getAllDataExpenses();
             Cursor curIncomes = DB.getAllDataIncomes();
 
@@ -110,8 +115,10 @@ public class SyncPage extends Fragment{
                     data_expenses[0] = Integer.toString(curExpenses.getInt(0));
                     data_expenses[1] = curExpenses.getString(1);
                     data_expenses[2] = Integer.toString(curExpenses.getInt(2));
-                    Log.e("info expenses", data_expenses[1]);
-                    expenses_value.add(String.valueOf(data_expenses));
+                    expenses_value_List.add(String.valueOf(data_expenses[0]));
+                    expenses_value_List.add(String.valueOf(data_expenses[1]));
+                    expenses_value_List.add(String.valueOf(data_expenses[2]));
+//                    Log.e("INFO EXPENSES LIST", String.valueOf(expenses_value_List));
                 }
                 curExpenses.close();
             }
@@ -122,17 +129,27 @@ public class SyncPage extends Fragment{
                     data_incomes[0] = Integer.toString(curIncomes.getInt(0));
                     data_incomes[1] = curIncomes.getString(1);
                     data_incomes[2] = Integer.toString(curIncomes.getInt(2));
-                    Log.e("info incomes", data_incomes[1]);
-                    incomes_value.add(String.valueOf(data_incomes));
+//                    Log.e("info incomes", data_incomes[1]);
+                    incomes_value_List.add(String.valueOf(data_incomes[0]));
+                    incomes_value_List.add(String.valueOf(data_incomes[1]));
+                    incomes_value_List.add(String.valueOf(data_incomes[2]));
+//                    Log.e("INFO INCOMES LIST", String.valueOf(incomes_value_List));
                 }
                 curIncomes.close();
             }
-            tv_values.setText(String.valueOf(incomes_value));
+        String total_data_expenses, total_data_incomes;
+        total_data_expenses = expenses_value_List.toString();
+        total_data_incomes = incomes_value_List.toString();
+
+
+//            tv_values.setText("EXPENSES = "+String.valueOf(expenses_value_List) +"\n" +"\n"
+//                                +"INCOMES = "+String.valueOf(incomes_value_List));
+        tv_values.setText(total_data_expenses +"\n" +total_data_incomes);
 
         btnSync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(KoneksiCek()==false) {
+                if(KoneksiCek()!=true) {
                     Toast.makeText(getActivity(), "Check Your Network Connectivity!!!", Toast.LENGTH_SHORT).show();
                 }else{
                     onSyncing();
@@ -169,18 +186,21 @@ public class SyncPage extends Fragment{
                         SyncDialog.dismiss();
                     } else {
 //                        Toast.makeText(getActivity(), "404, NOT FOUND", Toast.LENGTH_SHORT).show();
-                        onFailed();
                         tv_status.setText("FAILED SYNC VALUE = " + String.valueOf(status));
                         Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
                         tv_status.setTypeface(supercell);
                         SyncDialog.dismiss();
+                        String code = String.valueOf(status);
+                        Log.e("CODE Values", code);
+                        onFailed();
                     }
+
                 }
 
                 @Override
                 public void onFailure(Call<SyncTransaction> call, Throwable t) {
                     tv_status.setText("Nilai FAILURE Response API = " + String.valueOf(t));
-                    Log.d("Sync", "Sync Response =" + t.getMessage());
+                    Log.d("Sync", "Sync Response = " + t.getMessage());
                 }
             });
 
@@ -210,7 +230,6 @@ public class SyncPage extends Fragment{
         SyncDialog.dismiss();
         return false;
         }
-
     private boolean onFailed(){
         alert = new AlertDialog.Builder(getActivity());
         LinearLayout layoutD = new LinearLayout(getActivity());
@@ -268,18 +287,32 @@ public class SyncPage extends Fragment{
         NetworkInfo netInfo = konek.getActiveNetworkInfo();
         if(netInfo !=null && netInfo.isConnectedOrConnecting()){
             Toast.makeText(getActivity(), "NETWORK OK", Toast.LENGTH_SHORT).show();
+            return true;
         }else{
             Toast.makeText(getActivity(), "NO NETWORK", Toast.LENGTH_SHORT).show();
-//            onFailed();
+            return false;
         }
-        return true;
     }
+
     private void homeFragment() {
         fragment = new DashboardPage();
         FM = getFragmentManager();
         FT = FM.beginTransaction();
         FT.replace(R.id.fragment_place, fragment);
         FT.commit();
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // TODO Add your menu entries here
+        inflater.inflate(R.menu.menu_sync, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
 

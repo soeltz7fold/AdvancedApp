@@ -35,15 +35,17 @@
         android:id="@+id/btnSync"
         android:layout_gravity="center" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:text="STATUS VALUES"
         android:id="@+id/tv_values"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:textColor="@color/colorPrimaryDark"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="100dp"
         android:layout_gravity="center_horizontal|bottom" />
+    </ScrollView>
 </FrameLayout>

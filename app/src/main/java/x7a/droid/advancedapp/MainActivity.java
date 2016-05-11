@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,16 +17,25 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import x7a.droid.advancedapp.fragment.ChartPage;
+import x7a.droid.advancedapp.fragment.DashboardPage;
+import x7a.droid.advancedapp.fragment.SyncPage;
+import x7a.droid.advancedapp.fragment.TransactionPage;
+import x7a.droid.advancedapp.trial.FabPage;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public Toolbar toolbar;
     DatabaseHelper DB;
     SharedPreferences get_shared_preference;
+    SharedPreferences.Editor sp_editor;
+    EditText desc_exp, amount_exp, desc_inc, amount_inc;
+    TextView tv_result_exp, tv_result_inc, nav_email, nav_token;
+    String emailUser, tokenUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,25 +43,38 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("ADVANCED");
-        toolbar.setNavigationIcon(R.drawable.ic_menu_camera);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_camera);
+
+        //Get Cache
+        get_shared_preference = getSharedPreferences("authentication", MODE_PRIVATE);
+        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        navView.setNavigationItemSelectedListener(this);
+        View header = navView.getHeaderView(0);//initialize
+        nav_token = (TextView) header.findViewById(R.id.token_id);
+        nav_email = (TextView) header.findViewById(R.id.nav_user);
+        nav_email.setText("Hi, " +get_shared_preference.getString("email", ""));
+        nav_token.setText("ID = " +get_shared_preference.getString("token_authentication", ""));
+        nav_email.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        Toast.makeText(MainActivity.this, "Welcome : "+get_shared_preference.getString("email",""), Toast.LENGTH_SHORT).show();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+
+        navView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -80,36 +100,40 @@ public class MainActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        desc_exp = (EditText) findViewById(R.id.desc_add_expenses);
+        amount_exp = (EditText) findViewById(R.id.amount_add_expenses);
+        desc_inc = (EditText) findViewById(R.id.desc_new_income);
+        amount_inc = (EditText) findViewById(R.id.amount_new_income);
+        tv_result_exp = (TextView) findViewById(R.id.tv_result_expenses);
+        tv_result_inc = (TextView) findViewById(R.id.tv_result_income);
+        Typeface supercell = Typeface.createFromAsset(getResources().getAssets(), "fonts/Supercell.ttf");
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-//        if (id == R.id.setelan) {
-//            finish();
-//        }
         if (id == R.id.action_wow){
+            get_shared_preference = getSharedPreferences("authentication", MODE_PRIVATE);
+            sp_editor = get_shared_preference.edit();
+            sp_editor.putString("email", "");
+            sp_editor.putString("token_authentication", "");
+            sp_editor.commit();
+            Intent i = new Intent(MainActivity.this,LoginActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
             finish();
         }
         if(id == R.id.clear_expanses) {
-            EditText desc_exp = (EditText) findViewById(R.id.desc_add_expenses);
-            EditText amount_exp = (EditText) findViewById(R.id.amount_add_expenses);
-            TextView result_exp = (TextView) findViewById(R.id.tv_new_expenses);
             desc_exp.setText("");
             amount_exp.setText("");
-            result_exp.setText("EXPENSES Again?");
-            Typeface supercell = Typeface.createFromAsset(getResources().getAssets(), "fonts/Supercell.ttf");
-            result_exp.setTypeface(supercell);
+            tv_result_exp.setText("EXPENSES Again?");
+            tv_result_exp.setTypeface(supercell);
         }
         if(id == R.id.clear_income) {
-            EditText desc_inc = (EditText) findViewById(R.id.desc_new_income);
-            EditText amount_inc = (EditText) findViewById(R.id.amount_new_income);
-            TextView result_inc = (TextView) findViewById(R.id.tv_new_income);
             desc_inc.setText("");
             amount_inc.setText("");
-            result_inc.setText("INCOME Again?");
-            Typeface supercell = Typeface.createFromAsset(getResources().getAssets(), "fonts/Supercell.ttf");
-            result_inc.setTypeface(supercell);
+            tv_result_inc.setText("INCOME Again?");
+            tv_result_inc.setTypeface(supercell);
         }
         if(id == R.id.cancel_sync){
             Toast.makeText(getApplicationContext(), "Cancel Sync?", Toast.LENGTH_SHORT).show();
@@ -123,18 +147,18 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment FG = null;
         FragmentManager FM;
         FragmentTransaction FT;
         Class FragmentChange = null;
-
-
-
+        Intent intent;
         if (id == R.id.dashboard) {
             FragmentChange = DashboardPage.class;
             toolbar.setTitle("DASHBOARD");
+//            navV.inflateHeaderView(R.layout.nav_header_main);
             Toast.makeText(this, "Welcome Dashboard Page", Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.transaction) {
@@ -151,21 +175,26 @@ public class MainActivity extends AppCompatActivity
             toolbar.setTitle("Floating");
         }
         else if (id == R.id.chart){
-            FragmentChange = Try.class;
+            FragmentChange = ChartPage.class;
             toolbar.setTitle("Chart");
         }
-        else if (id == R.id.exit) {
+        else if (id == R.id.exit){
             get_shared_preference = getSharedPreferences("authentication", MODE_PRIVATE);
-            SharedPreferences.Editor sp_editor = get_shared_preference.edit();
+            sp_editor = get_shared_preference.edit();
             sp_editor.putString("email", "");
             sp_editor.putString("token_authentication", "");
             sp_editor.commit();
-//            Toast.makeText(this, "Logout Clicked", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(this,LoginActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+            Intent i = new Intent(MainActivity.this,LoginActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
-            System.gc();
-            MainActivity.this.finish();
+
+//            Toast.makeText(this, "Logout Clicked", Toast.LENGTH_SHORT).show();
+//            Intent i = new Intent(MainActivity.this,LoginActivity.class);
+//            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(i);
+////            System.gc();
+//            finish();
         }
         else FragmentChange = null;
             try{

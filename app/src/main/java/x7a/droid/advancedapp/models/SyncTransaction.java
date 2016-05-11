@@ -1,4 +1,4 @@
-package x7a.droid.advancedapp;
+package x7a.droid.advancedapp.models;
 
 import android.database.Cursor;
 

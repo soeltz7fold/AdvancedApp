@@ -33,6 +33,8 @@
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="login_page">Login First</string>
+    <string name="nav_status">www.geeksfarm.com</string>
+    <string name="token_id">TOKEN VALUES HERE</string>
 
 
     <string-array name="autocomplete_email">

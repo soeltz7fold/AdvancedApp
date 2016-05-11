@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="x7a.droid.advancedapp.TransactionPage"
+    tools:context=".fragment.TransactionPage"
     android:id="@+id/fragment_transaction_page">
 
         <LinearLayout
@@ -13,6 +13,7 @@
             android:orientation="vertical"
             android:background="@color/black">
             <!-- TODO: Update blank fragment layout -->
+
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -27,25 +28,27 @@
                 app:cardBackgroundColor="@color/amber"
                 android:id="@+id/cv_new_expenses">
 
-            <LinearLayout
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <TextView
+                    <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/tv_new_expenses"
+                    android:id="@+id/tv_result_expenses"
                     android:text="===NEW EXPENSES==="
                     android:textAlignment="center"
                     android:textStyle="bold"/>
-                <View
+
+                    <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginTop="@dimen/activity_horizontal_margin"
                     android:background="@color/black"/>
-                <android.support.design.widget.TextInputLayout
+
+                    <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 <EditText
@@ -80,7 +83,7 @@
                     android:layout_marginTop="60dp"
                     android:background="@color/black"/>
 
-                <Button
+                    <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_horizontal_margin"
@@ -88,12 +91,13 @@
                     android:text="@string/btn_expenses"
                     android:id="@+id/btnAddExpenses"
                     android:layout_gravity="center_horizontal" />
-            </LinearLayout>
+                </LinearLayout>
+
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/cardview_compat_inset_shadow"
                 android:layout_marginEnd="@dimen/cardview_compat_inset_shadow"
                 android:layout_marginTop="@dimen/cardview_compat_inset_shadow"
@@ -112,7 +116,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:id="@+id/tv_new_income"
+                    android:id="@+id/tv_result_income"
                     android:text="===NEW INCOME==="
                     android:textAlignment="center"
                     android:textStyle="bold"/>
@@ -164,8 +168,83 @@
                         android:id="@+id/btnAddIncome"
                         android:layout_gravity="center_horizontal" />
                 </LinearLayout>
+
+                <com.github.clans.fab.FloatingActionMenu
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/menu_fab_transaction"
+                    android:layout_gravity="top|right"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    app:menu_fab_size="normal"
+                    app:menu_showShadow="true"
+                    app:menu_shadowColor="@color/amber"
+                    app:menu_shadowRadius="4dp"
+                    app:menu_shadowXOffset="0dp"
+                    app:menu_shadowYOffset="0dp"
+                    app:menu_colorNormal="@color/black"
+                    app:menu_colorPressed="#a0e743"
+                    app:menu_colorRipple="#99e14848"
+                    app:menu_animationDelayPerItem="170"
+                    app:menu_icon="@mipmap/ic_nav"
+                    app:menu_buttonSpacing="0dp"
+                    app:menu_labels_margin="0dp"
+                    app:menu_labels_showAnimation="@anim/fab_slide_out_to_right"
+                    app:menu_labels_hideAnimation="@anim/fab_slide_out_to_left"
+                    app:menu_labels_padding="4dp"
+                    app:menu_labels_textColor="#6018ac"
+                    app:menu_labels_textSize="14sp"
+                    app:menu_labels_cornerRadius="3dp"
+                    app:menu_labels_colorNormal="#fceb6a"
+                    app:menu_labels_colorPressed="#ea1d1d"
+                    app:menu_labels_colorRipple="#ee91f2c5"
+                    app:menu_labels_showShadow="true"
+                    app:menu_labels_singleLine="false"
+                    app:menu_labels_ellipsize="end"
+                    app:menu_labels_maxLines="-1"
+                    app:menu_labels_position="left"
+                    app:menu_openDirection="up"
+                    app:menu_backgroundColor="@android:color/transparent"
+                    app:fab_progress_color="#FF009688"
+                    app:fab_progress_indeterminate="false"
+                    app:fab_progress_max="100"
+                    app:fab_progress="0">
+
+                    <com.github.clans.fab.FloatingActionButton
+                        android:id="@+id/transaction_fab1"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/ic_clear_expenses"
+                        app:fabSize="mini"
+                        app:fab_colorNormal="@color/colorPrimaryDark"
+                        app:fab_colorPressed="@color/amber"
+                        app:rippleColor="@color/colorAccent"/>
+
+                    <com.github.clans.fab.FloatingActionButton
+                        android:id="@+id/transaction_fab2"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/ic_clear_incomes"
+                        app:fabSize="mini"
+                        app:fab_colorNormal="@color/colorPrimary"
+                        app:fab_colorPressed="@color/amber"
+                        app:rippleColor="@color/colorAccent"/>
+                    <!--app_fab_colorRipple="@app_fab_colorRipple"-->
+
+                </com.github.clans.fab.FloatingActionMenu>
             </android.support.v7.widget.CardView>
+
         </LinearLayout>
+
 </FrameLayout>
 
 

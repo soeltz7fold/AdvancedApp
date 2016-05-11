@@ -1,4 +1,4 @@
-package x7a.droid.advancedapp;
+package x7a.droid.advancedapp.models;
 
 /**
  * Created by DroiD on 20/04/2016.

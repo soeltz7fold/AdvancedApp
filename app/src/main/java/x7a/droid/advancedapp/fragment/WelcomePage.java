@@ -1,4 +1,4 @@
-package x7a.droid.advancedapp;
+package x7a.droid.advancedapp.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
+
+import x7a.droid.advancedapp.R;
 
 /**
  * Created by DroiD on 28/04/2016.

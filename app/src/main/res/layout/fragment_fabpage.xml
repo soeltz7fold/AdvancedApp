@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="x7a.droid.advancedapp.FabPage"
+    tools:context=".trial.FabPage"
     android:background="@color/purple">
 
     <!--<android.support.design.widget.AppBarLayout-->

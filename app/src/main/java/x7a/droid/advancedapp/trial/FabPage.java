@@ -1,4 +1,4 @@
-package x7a.droid.advancedapp;
+package x7a.droid.advancedapp.trial;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import java.util.zip.Inflater;
+
+import x7a.droid.advancedapp.R;
 
 /**
  * Created by DroiD on 11/05/2016.

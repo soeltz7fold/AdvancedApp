@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.annotation.ColorRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +26,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import x7a.droid.advancedapp.Interface.InterfaceApi;
+import x7a.droid.advancedapp.models.Users;
+import x7a.droid.advancedapp.trial.Try;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String BASE_URL_LOGIN = "http://private-f4dc2-signuplogin.apiary-mock.com";
@@ -83,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
             } else {
+                Toast.makeText(this, "Welcome Back, "+get_shared_preference.getString("email", ""), Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();

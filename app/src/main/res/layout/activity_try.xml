@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="x7a.droid.advancedapp.Try"
+    tools:context=".trial.Try"
     android:background="@color/amber">
 
     <Button

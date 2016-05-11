@@ -1,4 +1,4 @@
-package x7a.droid.advancedapp;
+package x7a.droid.advancedapp.fragment;
 
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -10,15 +10,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -26,8 +23,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import x7a.droid.advancedapp.DatabaseHelper;
+import x7a.droid.advancedapp.R;
 
 public class DashboardPage extends Fragment {
     TextView txtDesc_exp, txtAmount_exp, title_exp, title_inc;
@@ -284,78 +281,3 @@ public class DashboardPage extends Fragment {
     FT.commit();
         }
     }
-
-
-
-
-//    public void onCreate(Bundle savedInstanceState){
-//        super.onCreate(savedInstanceState);
-//    }
-//
-//    private void alert_message(String title, String message) {
-//        AlertDialog.Builder build = new AlertDialog.Builder(getContext());
-//        build.setCancelable(true);
-//        build.setTitle(title);
-//        build.setMessage(message);
-//        build.show();
-//    }
-//    Cursor expenses = DB.list_expenses();
-//if (expenses.getCount() == 0) {
-//        alert_message("Message", "No Data Expenses Found");
-//        return view;
-//        }
-//        //Append
-//        StringBuffer buffer = new StringBuffer();
-//        while (expenses.moveToNext()) {
-////            buffer.append("id : " + expenses.getString(0) + "\n");
-////            buffer.append("description_exp : " + expenses.getString(1) + "\n");
-////            buffer.append("amount_exp : " + expenses.getString(2) + "\n");
-//
-//        txtDesc_exp.append(expenses.getString(1) +"    " +expenses.getString(2) + "\n");
-////            txtDesc_exp.append("Amount = " +expenses.getString(2) + "\n");
-//        }
-//        //show
-////        alert_message("List Expenses", buffer.toString());
-//        return view;
-
-//    @Override
-//    public void onClick(View v) {
-//        switch (v.getId()) {
-//            //SAVED
-//            case R.id.tv_expenses_title:
-//                Cursor expenses = DB.list_expenses();
-//                if (expenses.getCount() == 0) {
-//                    alert_message("Message", "No Data Expenses Found");
-//                return;
-//                }
-//                //Append
-//                StringBuffer buffer_exp = new StringBuffer();
-//                while (expenses.moveToNext()) {
-//                    buffer_exp.append("id : " + expenses.getString(0) + "\n");
-//                    buffer_exp.append("description_exp : " + expenses.getString(1) + "\n");
-//                    buffer_exp.append("amount_exp : " + expenses.getString(2) + "\n");
-//                }
-//                //show
-//                Toast.makeText(getActivity(), "CLICK", Toast.LENGTH_SHORT).show();
-//                alert_message("List Expenses", buffer_exp.toString());
-//                break;
-//            case R.id.tv_income_title:
-//                Cursor income = DB.list_expenses();
-//                if (income.getCount() == 0) {
-//                    alert_message("Message", "No Data Income Found");
-//                return;
-//                }
-//                //Append
-//                StringBuffer buffer_inc = new StringBuffer();
-//                while (income.moveToNext()) {
-//                    buffer_inc.append("id : " + income.getString(0) + "\n");
-//                    buffer_inc.append("description_inc : " + income.getString(1) + "\n");
-//                    buffer_inc.append("amount_inc : " + income.getString(2) + "\n");
-//                    //show
-//                    Toast.makeText(getActivity(), "CLICK", Toast.LENGTH_SHORT).show();
-//                    alert_message("List Expenses", buffer_inc.toString());
-//                    break;
-//                }
-//
-//            }
-//        }

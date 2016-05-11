@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="x7a.droid.advancedapp.DashboardPage"
+    tools:context=".fragment.DashboardPage"
     android:id="@+id/fragment_dashboard_page">
 
 <LinearLayout

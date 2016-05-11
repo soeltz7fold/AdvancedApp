@@ -1,4 +1,4 @@
-package x7a.droid.advancedapp;
+package x7a.droid.advancedapp.Interface;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -7,6 +7,8 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import x7a.droid.advancedapp.models.SyncTransaction;
+import x7a.droid.advancedapp.models.SyncTransactions;
 
 /**
  * Created by DroiD on 04/05/2016.

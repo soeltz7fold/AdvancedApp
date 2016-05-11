@@ -1,4 +1,4 @@
-package x7a.droid.advancedapp;
+package x7a.droid.advancedapp.fragment;
 
 
 import android.app.ProgressDialog;
@@ -9,13 +9,10 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,7 +21,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -35,18 +31,19 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import x7a.droid.advancedapp.DatabaseHelper;
+import x7a.droid.advancedapp.Interface.SyncApi;
+import x7a.droid.advancedapp.R;
+import x7a.droid.advancedapp.models.SyncTransaction;
 
 public class SyncPage extends Fragment{
     private static final String BASE_URL_SYNC = "http://private-6020b-task42.apiary-mock.com";
@@ -60,6 +57,7 @@ public class SyncPage extends Fragment{
  Cursor expenses, incomes;
  int clicked;
  private ProgressDialog SyncDialog;
+
 // private Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
 // private List <String>expenses_value_List = new ArrayList<String>();
 //    private String[] expenses = {

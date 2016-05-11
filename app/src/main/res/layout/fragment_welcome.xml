@@ -7,7 +7,7 @@
     android:background="@color/white_pure"
     android:id="@+id/fragment_welcome"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="x7a.droid.advancedapp.WelcomePage">
+    tools:context=".fragment.WelcomePage">
 
     <ImageView
         android:layout_width="wrap_content"

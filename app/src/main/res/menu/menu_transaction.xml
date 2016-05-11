@@ -6,12 +6,12 @@
         android:id="@+id/clear_expanses"
         android:orderInCategory="99"
         android:title="@string/clear_expenses"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
     <item
         android:id="@+id/clear_income"
         android:orderInCategory="98"
         android:title="@string/clear_income"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="never" />
 
     <!--<item-->
         <!--android:id="@+id/action_wow"-->

@@ -60,9 +60,8 @@ public class SyncPage extends Fragment{
  Cursor expenses, incomes;
  int clicked;
  private ProgressDialog SyncDialog;
+// private Typeface supercell = Typeface.createFromAsset(getContext().getAssets(), "fonts/Supercell.ttf");
 // private List <String>expenses_value_List = new ArrayList<String>();
-
-
 //    private String[] expenses = {
 //            "id_exp","description_exp","amount_exp"};
 //    private String [] incomes = {

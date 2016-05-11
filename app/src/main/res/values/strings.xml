@@ -23,4 +23,25 @@
     <string name="nav_email">android.studio@android.com</string>
     <string name="cancel_sync">Cancel</string>
     <string name="skip_sync">Skip</string>
+
+
+    <string name="temp_email">dwikunto.bayu@kiranatama.com</string>
+    <string name="temp_password">DKJ3288nd</string>
+    <string name="action_register">Register</string>
+    <string name="prompt_email">Input Ure Email</string>
+    <string name="prompt_password">Enter Ure Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="login_page">Login First</string>
+
+
+    <string-array name="autocomplete_email">
+        <item>7@7.com</item>
+        <item>soeltz7fold@gmail.com</item>
+        <item>mdwibayukunto@kiaratama.com</item>
+        <item>dwikunto.bayu@kiranatama.com</item>
+        <item>kelvinjames@yahoo.com</item>
+        <item>henrysweart@gmail.com</item>
+        <item>gracepowell@yahoo.com</item>
+    </string-array>
 </resources>

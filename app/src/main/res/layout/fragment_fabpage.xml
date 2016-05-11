@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="x7a.droid.advancedapp.FabPage"
+    android:background="@color/purple">
+
+    <!--<android.support.design.widget.AppBarLayout-->
+        <!--android:id="@+id/appbar"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">-->
+        <!--<android.support.v7.widget.Toolbar-->
+            <!--android:id="@+id/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="?attr/actionBarSize"-->
+            <!--android:background="?attr/colorPrimary"-->
+            <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"-->
+            <!--app:layout_scrollFlags="enterAlways" />-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/recyclerview"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/custom_fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginBottom="16dp"-->
+    <!--android:layout_marginEnd="16dp"-->
+    <!--android:layout_marginRight="16dp"-->
+    <!--android:src="@drawable/ic_menu_manage"-->
+    <!--android:onClick="onAddPlayerClick"-->
+    <!--android:layout_gravity="bottom|center"-->
+    <!--app:elevation="4dp"-->
+    <!--app:borderWidth="0dp"/>-->
+
+    <com.github.clans.fab.FloatingActionMenu
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/menu_fab"
+    android:layout_gravity="center|right"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginRight="10dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginLeft="10dp"
+    app:menu_fab_size="normal"
+    app:menu_showShadow="true"
+    app:menu_shadowColor="@color/amber"
+    app:menu_shadowRadius="4dp"
+    app:menu_shadowXOffset="0dp"
+    app:menu_shadowYOffset="0dp"
+    app:menu_colorNormal="@color/black"
+    app:menu_colorPressed="#a0e743"
+    app:menu_colorRipple="#99e14848"
+    app:menu_animationDelayPerItem="170"
+    app:menu_icon="@mipmap/ic_nav"
+    app:menu_buttonSpacing="0dp"
+    app:menu_labels_margin="0dp"
+    app:menu_labels_showAnimation="@anim/fab_slide_out_to_right"
+    app:menu_labels_hideAnimation="@anim/fab_slide_out_to_left"
+    app:menu_labels_padding="4dp"
+    app:menu_labels_textColor="#6018ac"
+    app:menu_labels_textSize="14sp"
+    app:menu_labels_cornerRadius="3dp"
+    app:menu_labels_colorNormal="#fceb6a"
+    app:menu_labels_colorPressed="#ea1d1d"
+    app:menu_labels_colorRipple="#ee91f2c5"
+    app:menu_labels_showShadow="true"
+    app:menu_labels_singleLine="false"
+    app:menu_labels_ellipsize="end"
+    app:menu_labels_maxLines="-1"
+    app:menu_labels_position="left"
+    app:menu_openDirection="up"
+    app:menu_backgroundColor="@android:color/transparent"
+    app:fab_progress_color="#FF009688"
+    app:fab_progress_indeterminate="false"
+    app:fab_progress_max="100"
+    app:fab_progress="0">
+
+    <com.github.clans.fab.FloatingActionButton
+    android:id="@+id/custom_fab1"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:layout_gravity="bottom|center"
+    android:layout_marginBottom="8dp"
+    android:layout_marginRight="8dp"
+    android:src="@mipmap/ic_launcher"
+    app:fab_colorNormal="@color/colorPrimaryDark"
+    app:fab_colorPressed="@color/amber"/>
+
+    <com.github.clans.fab.FloatingActionButton
+        android:id="@+id/custom_fab2"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="8dp"
+        android:src="@mipmap/ic_bk"
+        app:fab_colorNormal="@color/dark_green"
+        app:fab_colorPressed="@color/amber"/>
+    <!--app_fab_colorRipple="@app_fab_colorRipple"-->
+
+    </com.github.clans.fab.FloatingActionMenu>
+</android.support.design.widget.CoordinatorLayout>
+
+
+
+
+

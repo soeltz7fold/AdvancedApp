@@ -1,6 +1,8 @@
 package x7a.droid.advancedapp;
 
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -26,9 +28,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     public Toolbar toolbar;
     DatabaseHelper DB;
-    EditText desc_exp, amount_exp, result_exp,
-            desc_inc, amount_inc, result_inc;
-    Button add_exp, add_inc;
+    SharedPreferences get_shared_preference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,46 +125,63 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Fragment FG = null;
+        FragmentManager FM;
+        FragmentTransaction FT;
+        Class FragmentChange = null;
+
+
+
         if (id == R.id.dashboard) {
-            Fragment FG = new DashboardPage();
-            FragmentManager FM = getSupportFragmentManager();
-            FragmentTransaction FT = FM.beginTransaction();
-            Bundle bundle = new Bundle();
-            FG.setArguments(bundle);
-            FT.replace(R.id.fragment_place, FG);
-            FT.commit();
+            FragmentChange = DashboardPage.class;
             toolbar.setTitle("DASHBOARD");
             Toast.makeText(this, "Welcome Dashboard Page", Toast.LENGTH_SHORT).show();
         }
         else if (id == R.id.transaction) {
-            Fragment FG = new TransactionPage();
-            FragmentManager FM = getSupportFragmentManager();
-            FragmentTransaction FT = FM.beginTransaction();
-            Bundle bundle = new Bundle();
-            FG.setArguments(bundle);
-            FT.replace(R.id.fragment_place, FG);
-            FT.commit();
+            FragmentChange = TransactionPage.class;
             Toast.makeText(this, "Welcome Transaction Page", Toast.LENGTH_SHORT).show();
             toolbar.setTitle("TRANSACTION");
-
         }
-
         else if (id == R.id.sync) {
-            Fragment FG = new SyncPage();
-            FragmentManager FM = getSupportFragmentManager();
-            FragmentTransaction FT = FM.beginTransaction();
-            Bundle bundle = new Bundle();
-            FG.setArguments(bundle);
-            FT.replace(R.id.fragment_place, FG);
-            FT.commit();
+            FragmentChange = SyncPage.class;
             toolbar.setTitle("SYNCHRONIZE");
-//            Toast.makeText(this, "Welcome Synchronize Page", Toast.LENGTH_SHORT).show();
+        }
+        else if(id == R.id.fab){
+            FragmentChange = FabPage.class;
+            toolbar.setTitle("Floating");
+        }
+        else if (id == R.id.chart){
+            FragmentChange = Try.class;
+            toolbar.setTitle("Chart");
         }
         else if (id == R.id.exit) {
-            finish();
+            get_shared_preference = getSharedPreferences("authentication", MODE_PRIVATE);
+            SharedPreferences.Editor sp_editor = get_shared_preference.edit();
+            sp_editor.putString("email", "");
+            sp_editor.putString("token_authentication", "");
+            sp_editor.commit();
+//            Toast.makeText(this, "Logout Clicked", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this,LoginActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+            System.gc();
+            MainActivity.this.finish();
         }
+        else FragmentChange = null;
+            try{
+                FG = (Fragment)FragmentChange.newInstance();
+                }catch (InstantiationException e){
+                    e.printStackTrace();
+                }catch (IllegalAccessException e){
+                    e.printStackTrace();
+                }
+        FM = getSupportFragmentManager();
+        FT = FM.beginTransaction();
+        FT.replace(R.id.fragment_place, FG);
+        FT.commit();
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+        }
     }
-}

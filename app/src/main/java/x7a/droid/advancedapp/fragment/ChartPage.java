@@ -1,9 +1,18 @@
 package x7a.droid.advancedapp.fragment;
 
+import android.widget.Toast;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringDef;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,18 +32,34 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
+import x7a.droid.advancedapp.DatabaseHelper;
+import java.util.Locale;
 import x7a.droid.advancedapp.R;
 
 /**
  * Created by DroiD on 12/05/2016.
  */
 public class ChartPage extends Fragment {
+    //GET SQLite
+    ProgressBar PB;
+    DatabaseHelper DB;
+    Cursor expenses, incomes;
+    ArrayList<Float> incomes_value_List = new ArrayList<Float>();
+    ArrayList<Float> expenses_value_List = new ArrayList<Float>();
+    float total_data_expenses, total_data_incomes;
+    //Pie
+//    private PieChart pie_chart;
+    private String [] x_pie = {"EXPENSES", "INCOMES", "BALANCES"};
+//    private float[] y_pie = {10000, 5000, 25000};
+//    private float[] y_pie = {total_data_expenses,total_data_incomes} ;
+    private float[] y_pie = new float[3] ;
+    float exval = 0;
+    float inval = 0;
     //Pie
     private PieChart pie_chart;
-    private float[] y_pie = {8000, 80000, 72000};
-    private String[] x_pie = {"expenses", "incomes", "balance"};
 
     //Fab Progress
     private int mScrollOffset = 10;
@@ -47,9 +72,61 @@ public class ChartPage extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_chart_page, container, false);
         pie_chart = (PieChart) view.findViewById(R.id.pieChart);
+
+        //INIT
+        DB = new DatabaseHelper(getContext());
+        expenses = DB.getAllDataExpenses();
+        incomes = DB.getAllDataIncomes();
+        //CONVERT
+        Cursor curExpenses = DB.getAllDataExpenses();
+        Cursor curIncomes = DB.getAllDataIncomes();
+        //GET EXPENSES
+        if (curExpenses != null) {
+            while (curExpenses.moveToNext()) {
+//                final int rowId = curExpenses.getInt(curExpenses.getColumnIndexOrThrow("_id"));
+//                final String descriptionExpTemp = curExpenses.getString(curExpenses.getColumnIndex("description_exp"));
+                int amountExpTemp = curExpenses.getInt(curExpenses.getColumnIndex("amount_exp"));
+                expenses_value_List.add(Float.valueOf(amountExpTemp));
+                }
+            float [] float_xp = new float[expenses_value_List.size()];
+            for (int i = 0; i< expenses_value_List.size();i++) {
+                exval = exval + Float.valueOf(expenses_value_List.get(i));
+                Log.e("nilai", String.valueOf(exval));
+
+                //float_xp[i] = Float.valueOf(expenses_value_List.get(i));
+//                String floatxp = Float.parseFloat(float_xp[i]);
+                Log.e("value FLOAT EXPENSES", String.valueOf(float_xp [i]));
+                }
+//                y_pie = float_xp;
+            //paksakeun
+            y_pie[0] = exval;
+            curExpenses.close();
+            }
+
+        //GET INCOMES
+            if (curIncomes != null) {
+                while (curIncomes.moveToNext()) {
+//                  final int rowId = curIncomes.getInt(curIncomes.getColumnIndexOrThrow("_id"));
+//                  final String descriptionIncTemp = curIncomes.getString(curIncomes.getColumnIndex("description_inc"));
+                    int amountIncTemp = curIncomes.getInt(curIncomes.getColumnIndex("amount_inc"));
+                    incomes_value_List.add(Float.valueOf(amountIncTemp));
+                }
+                float [] float_inc = new float[incomes_value_List.size()];
+
+                for (int i = 0; i< incomes_value_List.size();i++) {
+//                    float_inc[i] = incomes_value_List.get(i);
+                    inval = inval + Float.valueOf(incomes_value_List.get(i));
+                    Log.e("value INCOMES", String.valueOf(float_inc));
+                    }
+                y_pie[1] = inval;
+                curIncomes.close();
+            }
+        y_pie[2]= inval - exval;
+//        Log.e("INFO ALL LIST", String.valueOf(incomes_value_List) + String.valueOf(expenses_value_List));
         layout_pie_chart();
         return view;
     }
+
 
     private void layout_pie_chart() {
         pie_chart.setDescription("Card Statistic");
@@ -67,11 +144,12 @@ public class ChartPage extends Fragment {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
                 if (e.equals(null)) return;
-                Toast.makeText(getActivity(), x_pie[e.getXIndex()] + " = " + e.getVal() + "%", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), x_pie[e.getXIndex()] + " = " + e.getVal() +" Rupiah", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onNothingSelected() {
+                Toast.makeText(getActivity(), "Click To View Details", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -93,7 +171,8 @@ public class ChartPage extends Fragment {
             x_value.add(x_pie[i]);
         }
         //create pie data
-        PieDataSet data_set = new PieDataSet(y_value, "Market Share");
+        PieDataSet data_set = new PieDataSet(y_value, "YOUR VALUES BALANCE");
+//        PieDataSet data_set = new PieDataSet(y_value, "Market Share");
         data_set.setSliceSpace(3);
         data_set.setSelectionShift(5);
         //add many colors
@@ -198,3 +277,13 @@ public class ChartPage extends Fragment {
         }
     }
 }
+
+//            expenses_value_List.add("10");
+//            expenses_value_List.add("100");
+//            expenses_value_List.add("three");
+//            String listString = "";
+//            for (String s : expenses_value_List) {
+//                listString += s + "\t";
+//
+//                Log.e("INFO ALL LIST", s);
+//            }

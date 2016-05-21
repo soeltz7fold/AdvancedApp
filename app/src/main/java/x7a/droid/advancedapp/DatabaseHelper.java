@@ -112,15 +112,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     ///METHOD GET EXPENSES
     public Cursor getAllDataExpenses() {
         String selectQuery = "Select * from "+TABLE_NAME_EXPENSES;
+        String selectQuery2 = "SELECT "+COL_1_EXP+" as '_id', "+COL_2_EXP+", "+COL_3_EXP+" FROM " + TABLE_NAME_EXPENSES;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor curAllExpenses = db.rawQuery(selectQuery, null);
+        Cursor curAllExpenses = db.rawQuery(selectQuery2, null);
         return curAllExpenses;
     }
 
     public Cursor getAllDataIncomes() {
         String selectQuery = "Select * from "+TABLE_NAME_INCOMES;
+        String selectQuery2 = "SELECT "+COL_1_INC+" as '_id', "+COL_2_INC+", "+COL_3_INC+" FROM " + TABLE_NAME_INCOMES;
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor curAllIncomes = db.rawQuery(selectQuery, null);
+        Cursor curAllIncomes = db.rawQuery(selectQuery2, null);
         return curAllIncomes;
     }
 }

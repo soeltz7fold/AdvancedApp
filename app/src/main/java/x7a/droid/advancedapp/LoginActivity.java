@@ -93,9 +93,9 @@ public class LoginActivity extends AppCompatActivity {
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this,Try.class);
+                Intent i = new Intent(LoginActivity.this,MapsPage.class);
                 startActivity(i);
-                Toast.makeText(LoginActivity.this, "check Picasso", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(LoginActivity.this, "check Picasso", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -110,8 +110,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void populateAutoComplete() {
         AutoCompleteTextView inputEmail = (AutoCompleteTextView) findViewById(R.id.email);
-        String[] countries = getResources().getStringArray(R.array.autocomplete_email);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, countries);
+        String[] email = getResources().getStringArray(R.array.autocomplete_email);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, email);
         inputEmail.setAdapter(adapter);
     }
 

@@ -21,6 +21,10 @@
             android:id="@+id/chart"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Chart" />
+        <item
+            android:id="@+id/maps"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Maps"/>
 
 <!--<item-->
             <!--android:id="@+id/nav_manage"-->

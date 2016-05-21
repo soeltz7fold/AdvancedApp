@@ -178,6 +178,13 @@ public class MainActivity extends AppCompatActivity
             FragmentChange = ChartPage.class;
             toolbar.setTitle("Chart");
         }
+        else if (id == R.id.maps) {
+            FragmentChange = MapsPage.class;
+            toolbar.setTitle("Maps");
+
+//            Intent i = new Intent(this,MapsPage.class);
+//            startActivity(i);
+        }
         else if (id == R.id.exit){
             get_shared_preference = getSharedPreferences("authentication", MODE_PRIVATE);
             sp_editor = get_shared_preference.edit();

@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import x7a.droid.advancedapp.LoginActivity;
+import x7a.droid.advancedapp.MapsPage;
 import x7a.droid.advancedapp.R;
 
 public class Try extends AppCompatActivity {
@@ -44,12 +45,12 @@ public class Try extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences.Editor sp_editor = get_shared_preference.edit();
-                sp_editor.putString("email", "");
-                sp_editor.putString("token_authentication", "");
-                sp_editor.commit();
-                Toast.makeText(Try.this, "Logout Clicked", Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(Try.this,LoginActivity.class);
+//                SharedPreferences.Editor sp_editor = get_shared_preference.edit();
+//                sp_editor.putString("email", "");
+//                sp_editor.putString("token_authentication", "");
+//                sp_editor.commit();
+//                Toast.makeText(Try.this, "Logout Clicked", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(Try.this,MapsPage.class);
                 startActivity(i);
                 finish();
             }

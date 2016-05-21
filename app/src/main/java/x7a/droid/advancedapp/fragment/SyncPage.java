@@ -46,8 +46,8 @@ import x7a.droid.advancedapp.R;
 import x7a.droid.advancedapp.models.SyncTransaction;
 
 public class SyncPage extends Fragment{
-    private static final String BASE_URL_SYNC = "http://private-6020b-task42.apiary-mock.com";
-    TextView tv_status, tv_values;
+ private static final String BASE_URL_SYNC = "http://private-6020b-task42.apiary-mock.com";
+ TextView tv_status, tv_values;
  AlertDialog.Builder alert;
  Fragment fragment;
  FragmentManager FM;
